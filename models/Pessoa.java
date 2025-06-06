@@ -1,3 +1,4 @@
+package models;
 public interface Pessoa {
     public int getId();
 
@@ -7,11 +8,11 @@ public interface Pessoa {
 
     public void setNome(String nome);
 
-    public int getCpf();
-
-    public void setCpf(int cpf);
-
     public int getIdade();
 
     public void setIdade(int idade);
+
+    public Evento[] getEventos();
+
+    public void setEventos(Evento[] eventos);
 }
