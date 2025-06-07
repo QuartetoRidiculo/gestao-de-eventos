@@ -1,15 +1,17 @@
-public class Participante implements Pessoa {
+package models;
+
+public class Organizador implements Pessoa {
     private int id;
     private String nome;
     private int idade;
-    private int cpf;
     private Evento[] eventos;
+    private String cargo;
 
-    public Participante(int id, String nome, int idade, int cpf) {
+    public Organizador(int id, String nome, int idade, String cargo) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;
-        this.cpf = cpf;
+        this.cargo = cargo;
     }
 
     public int getId() {
@@ -36,12 +38,12 @@ public class Participante implements Pessoa {
         this.idade = idade;
     }
 
-    public int getCpf() {
-        return cpf;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setCpf(int cpf) {
-        this.cpf = cpf;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
 
     public Evento[] getEventos() {
