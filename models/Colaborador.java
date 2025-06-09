@@ -2,18 +2,19 @@ package models;
 
 import java.util.ArrayList;
 
-public class Organizador implements Pessoa {
+public class Colaborador implements Pessoa {
     private int id;
     private String nome;
     private int idade;
+    private String funcao;
     private ArrayList<Evento> eventos;
-    private String cargo;
 
-    public Organizador(int id, String nome, int idade, String cargo) {
+
+    public Colaborador(int id, String nome, int idade, String funcao) {
         this.id = id;
         this.nome = nome;
         this.idade = idade;
-        this.cargo = cargo;
+        this.funcao = funcao;
     }
 
     public int getId() {
@@ -40,14 +41,14 @@ public class Organizador implements Pessoa {
         this.idade = idade;
     }
 
-    public String getCargo() {
-        return cargo;
+    public String getFuncao() {
+        return funcao;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setFuncao(String funcao) {
+        this.funcao = funcao;
     }
-
+    
     public ArrayList<Evento> getEventos() {
         return eventos;
     }
@@ -55,4 +56,5 @@ public class Organizador implements Pessoa {
     public void setEventos(ArrayList<Evento> eventos) {
         this.eventos = eventos;
     }
+
 }

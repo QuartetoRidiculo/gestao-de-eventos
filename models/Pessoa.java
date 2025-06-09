@@ -1,4 +1,7 @@
 package models;
+
+import java.util.ArrayList;
+
 public interface Pessoa {
     public int getId();
 
@@ -12,7 +15,7 @@ public interface Pessoa {
 
     public void setIdade(int idade);
 
-    public Evento[] getEventos();
+    public ArrayList<Evento> getEventos();
 
-    public void setEventos(Evento[] eventos);
+    public void setEventos(ArrayList<Evento> eventos);
 }
