@@ -1,25 +1,26 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Evento {
     private int id;
     private String nome;
-    private int data;
+    private String data;
     private String local;
-    private Organizador[] organizadores;
-    private Participante[] participantes;
+    private ArrayList<Organizador> organizadores;
+    private ArrayList<Participante> participantes;
+    private ArrayList<Colaborador> colaboradores;
 
     public int getId() {
         return id;
     }
 
-    public Evento(int id, String nome, int data, String local, Organizador[] organizadores,
-            Participante[] participantes) {
+    public Evento(int id, String nome, String data, String local, ArrayList<Organizador> organizadores) {
         this.id = id;
         this.nome = nome;
         this.data = data;
         this.local = local;
         this.organizadores = organizadores;
-        this.participantes = participantes;
     }
 
     public void setId(int id) {
@@ -34,11 +35,11 @@ public class Evento {
         this.nome = nome;
     }
 
-    public int getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(int data) {
+    public void setData(String data) {
         this.data = data;
     }
 
@@ -50,19 +51,27 @@ public class Evento {
         this.local = local;
     }
 
-    public Organizador[] getOrganizadores() {
+    public ArrayList<Organizador> getOrganizadores() {
         return organizadores;
     }
 
-    public void setOrganizadores(Organizador[] organizadores) {
+    public void setOrganizadores(ArrayList<Organizador> organizadores) {
         this.organizadores = organizadores;
     }
 
-    public Participante[] getParticipantes() {
+    public ArrayList<Participante> getParticipantes() {
         return participantes;
     }
 
-    public void setParticipantes(Participante[] participantes) {
+    public void setParticipantes(ArrayList<Participante> participantes) {
         this.participantes = participantes;
+    }
+
+    public ArrayList<Colaborador> getColaboradores() {
+        return colaboradores;
+    }
+
+    public void setColaboradores(ArrayList<Colaborador> colaboradores) {
+        this.colaboradores = colaboradores;
     }
 }

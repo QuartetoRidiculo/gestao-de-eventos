@@ -1,10 +1,12 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Participante implements Pessoa {
     private int id;
     private String nome;
     private int idade;
-    private Evento[] eventos;
+    private ArrayList<Evento> eventos;
 
     public Participante(int id, String nome, int idade) {
         this.id = id;
@@ -36,11 +38,11 @@ public class Participante implements Pessoa {
         this.idade = idade;
     }
 
-    public Evento[] getEventos() {
+    public ArrayList<Evento> getEventos() {
         return eventos;
     }
 
-    public void setEventos(Evento[] eventos) {
+    public void setEventos(ArrayList<Evento> eventos) {
         this.eventos = eventos;
     }
 }
