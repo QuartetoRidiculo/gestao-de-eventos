@@ -2,8 +2,9 @@ package models;
 
 import java.util.ArrayList;
 
-public class Evento {
-    private int id;
+import javax.swing.JOptionPane;
+
+public class Evento implements EventoInterface {
     private String nome;
     private String data;
     private String local;
@@ -11,20 +12,11 @@ public class Evento {
     private ArrayList<Participante> participantes;
     private ArrayList<Colaborador> colaboradores;
 
-    public int getId() {
-        return id;
-    }
-
-    public Evento(int id, String nome, String data, String local, ArrayList<Organizador> organizadores) {
-        this.id = id;
+    public Evento(String nome, String data, String local, ArrayList<Organizador> organizadores) {
         this.nome = nome;
         this.data = data;
         this.local = local;
         this.organizadores = organizadores;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -73,5 +65,25 @@ public class Evento {
 
     public void setColaboradores(ArrayList<Colaborador> colaboradores) {
         this.colaboradores = colaboradores;
+    }
+
+    @Override
+    public void gerarRelatorioParticipantes() {
+        String relatorio = "Relatório de Participantes do Evento: " + nome + "\n";
+        if (participantes == null || participantes.isEmpty()) {
+            relatorio += "Nenhum participante cadastrado.";
+            JOptionPane.showMessageDialog(null, relatorio);
+            return;
+        }
+
+        String listaDeParticipantes = "";
+
+        for (Participante p : participantes) {
+            listaDeParticipantes += "- " + p.getNome() + "\n";
+        }
+
+        relatorio += listaDeParticipantes;
+
+        JOptionPane.showMessageDialog(null, relatorio);
     }
 }

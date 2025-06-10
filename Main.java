@@ -1,34 +1,67 @@
+/*
+ * José Alison
+ * Darllan Cabral
+ * Gustavo Travassos
+ * Rodrigo Silveira
+*/
+
 import java.util.ArrayList;
 
 import models.Evento;
 import models.Organizador;
+import models.Participante;
+import services.GerarCertificado;
+import services.GerarRelatorio;
 import utils.Utils;
 
 public class Main {
     public static void main(String[] args) {
         ArrayList<Evento> eventos = new ArrayList<>();
-        ArrayList<Organizador> organizadores = new ArrayList<>();
-  
-        Organizador organizador1 = new Organizador(1, "organizador1", 32, "dev front end");
-        Organizador organizador2 = new Organizador(2, "organizador2", 23, "dev back end");
 
-        organizadores.add(organizador1);
-        organizadores.add(organizador2);
+        // EVENTO 1:
 
-        Evento evento1 = new Evento(1, "evento1", "13/06/2025", "Unifacista", organizadores);
+        ArrayList<Organizador> organizadores1 = new ArrayList<>();
+
+        organizadores1.add(new Organizador("organizador1", 32, "dev front end"));
+        organizadores1.add(new Organizador("organizador2", 23, "dev back end"));
+
+        Evento evento1 = new Evento("evento1", "13/06/2025", "Unifacisa", organizadores1);
+
+        ArrayList<Participante> participantes1 = new ArrayList<>();
+
+        participantes1.add(new Participante("alison", 17));
+        participantes1.add(new Participante("gustavo", 19));
+
+        evento1.setParticipantes(participantes1);
+
+        // EVENTO 2:
+
+        ArrayList<Organizador> organizadores2 = new ArrayList<>();
+
+        organizadores2.add(new Organizador("organizador1", 23, "dev fullstack"));
+
+        Evento evento2 = new Evento("evento2", "17/02/2024", "IFPB", organizadores2);
+
+        ArrayList<Participante> participantes2 = new ArrayList<>();
+
+        participantes2.add(new Participante("darllan", 17));
+        participantes2.add(new Participante("rodrigo", 19));
+
+        // evento2.setParticipantes(participantes2);
 
         eventos.add(evento1);
+        eventos.add(evento2);
 
-        String[] opcoesMenu = {
-                "Adicionar evento",
-                "Adicionar colaborador",
-                "Realizar inscrição no evento",
-                "Listar eventos",
-                "Listar colaboradores",
-                "Listar participantes",
-                "Gerar certificado",
-                "Gerar relatórios"
-        };
+        ArrayList<String> opcoesMenu = new ArrayList<>();
+
+        opcoesMenu.add("Adicionar evento");
+        opcoesMenu.add("Adicionar colaborador");
+        opcoesMenu.add("Realizar inscrição no evento");
+        opcoesMenu.add("Listar eventos");
+        opcoesMenu.add("Listar colaboradores");
+        opcoesMenu.add("Listar participantes");
+        opcoesMenu.add("Gerar certificado");
+        opcoesMenu.add("Gerar relatório de participantes por evento");
 
         int escolha = -2;
 
@@ -55,10 +88,10 @@ public class Main {
                     // Listar participantes
                     break;
                 case 6:
-                    // Gerar certificado
+                    GerarCertificado.gerarCertificado(eventos);
                     break;
                 case 7:
-                    // Gerar relatórios
+                    GerarRelatorio.gerarRelatorio(eventos);
                     break;
                 default:
                     break;
