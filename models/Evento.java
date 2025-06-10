@@ -3,7 +3,7 @@ package models;
 import javax.swing.*;
 import java.util.ArrayList;
 
-public class Evento {
+public class Evento implements EventoInterface {
     private int id;
     private String nome;
     private String data;
@@ -11,11 +11,6 @@ public class Evento {
     private ArrayList<Organizador> organizadores;
     private ArrayList<Participante> participantes;
     private ArrayList<Colaborador> colaboradores;
-
-
-    public int getId() {
-        return id;
-    }
 
     public Evento(int id, String nome, String data, String local, ArrayList<Organizador> organizadores) {
         this.id = id;
@@ -25,6 +20,10 @@ public class Evento {
         this.organizadores = organizadores;
         this.participantes = new ArrayList<>();
         this.colaboradores = new ArrayList<>();
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setId(int id) {
@@ -79,30 +78,30 @@ public class Evento {
         this.colaboradores = colaboradores;
     }
 
-    public static void criarEvento(ArrayList<Organizador> organizadores, ArrayList<Evento> eventos){
+    public static void criarEvento(ArrayList<Organizador> organizadores, ArrayList<Evento> eventos) {
 
         int idOrg = 0;
         int idEve = 0;
 
-        String quantidadeOrg = JOptionPane.showInputDialog(null,"Digite a quantidade de organizadores:");
+        String quantidadeOrg = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
 
-        while(!quantidadeOrg.matches("\\d+")){
+        while (!quantidadeOrg.matches("\\d+")) {
 
-            JOptionPane.showMessageDialog(null,"Digite uma quantidade válida.");
+            JOptionPane.showMessageDialog(null, "Digite uma quantidade válida.");
 
-            quantidadeOrg = JOptionPane.showInputDialog(null,"Digite a quantidade de organizadores:");
+            quantidadeOrg = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
 
         }
 
         int quantInt = Integer.parseInt(quantidadeOrg);
 
-        //Criando os campos de texto dos dados do organizador
+        // Criando os campos de texto dos dados do organizador
         JTextField nomeOrg = new JTextField();
         JTextField idadeOrg = new JTextField();
         JTextField cpfOrg = new JTextField();
         JTextField cargoOrg = new JTextField();
 
-        JPanel painelOrganizador = new JPanel(new java.awt.GridLayout(4,2,3,5));
+        JPanel painelOrganizador = new JPanel(new java.awt.GridLayout(4, 2, 3, 5));
         painelOrganizador.add(new JLabel("Nome: "));
         painelOrganizador.add(nomeOrg);
 
@@ -115,10 +114,10 @@ public class Evento {
         painelOrganizador.add(new JLabel("Cargo: "));
         painelOrganizador.add(cargoOrg);
 
-        for(int i = 0; i < quantInt; i++){
+        for (int i = 0; i < quantInt; i++) {
 
-            int infoOrg = JOptionPane.showConfirmDialog(null,painelOrganizador,
-                    String.format("Informações do organizador %s:",i + 1),JOptionPane.OK_CANCEL_OPTION);
+            int infoOrg = JOptionPane.showConfirmDialog(null, painelOrganizador,
+                    String.format("Informações do organizador %s:", i + 1), JOptionPane.OK_CANCEL_OPTION);
 
             String nome = nomeOrg.getText().trim();
             String idadeA = idadeOrg.getText().trim();
@@ -131,8 +130,8 @@ public class Evento {
                             !idadeA.matches("\\d+") || !cpf.matches("\\d{11}"))) {
                 JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente.");
 
-                infoOrg = JOptionPane.showConfirmDialog(null,painelOrganizador,
-                        String.format("Informações do organizador %s:",i + 1),JOptionPane.OK_CANCEL_OPTION);
+                infoOrg = JOptionPane.showConfirmDialog(null, painelOrganizador,
+                        String.format("Informações do organizador %s:", i + 1), JOptionPane.OK_CANCEL_OPTION);
 
                 nome = nomeOrg.getText().trim();
                 idadeA = idadeOrg.getText().trim();
@@ -141,7 +140,7 @@ public class Evento {
                 idade = Integer.parseInt(idadeA);
             }
 
-            Organizador organizador = new Organizador(idOrg++,nome,idade,cargo);
+            Organizador organizador = new Organizador(nome, idade, idOrg++, cargo);
 
             organizadores.add(organizador);
 
@@ -151,25 +150,25 @@ public class Evento {
             cargoOrg.setText("");
         }
 
-        //Criando evento
-        String nomeEvento = JOptionPane.showInputDialog(null,"Digite o nome do evento:");
+        // Criando evento
+        String nomeEvento = JOptionPane.showInputDialog(null, "Digite o nome do evento:");
 
-        while(nomeEvento.isEmpty()){
+        while (nomeEvento.isEmpty()) {
 
-            JOptionPane.showMessageDialog(null,"Por favor, insira o nome do evento.");
+            JOptionPane.showMessageDialog(null, "Por favor, insira o nome do evento.");
 
-            nomeEvento = JOptionPane.showInputDialog(null,"Digite o nome do evento:");
+            nomeEvento = JOptionPane.showInputDialog(null, "Digite o nome do evento:");
 
         }
 
         String data = "";
 
-        //Criando os campos do texto da data
+        // Criando os campos do texto da data
         JTextField diaA = new JTextField();
         JTextField mesB = new JTextField();
         JTextField anoC = new JTextField();
 
-        JPanel painelData = new JPanel(new java.awt.GridLayout(3,2,3,5));
+        JPanel painelData = new JPanel(new java.awt.GridLayout(3, 2, 3, 5));
         painelData.add(new JLabel("Dia:"));
         painelData.add(diaA);
 
@@ -179,7 +178,8 @@ public class Evento {
         painelData.add(new JLabel("Ano:"));
         painelData.add(anoC);
 
-        int dataDigito = JOptionPane.showConfirmDialog(null,painelData,"Digite a data:",JOptionPane.OK_CANCEL_OPTION);
+        int dataDigito = JOptionPane.showConfirmDialog(null, painelData, "Digite a data:",
+                JOptionPane.OK_CANCEL_OPTION);
 
         if (dataDigito == JOptionPane.OK_OPTION) {
             while (true) {
@@ -189,7 +189,8 @@ public class Evento {
 
                 boolean valido = true;
 
-                if (dia.isEmpty() || mes.isEmpty() || ano.isEmpty() || !dia.matches("\\d+") || !mes.matches("\\d+") || !ano.matches("\\d+")) {
+                if (dia.isEmpty() || mes.isEmpty() || ano.isEmpty() || !dia.matches("\\d+") || !mes.matches("\\d+")
+                        || !ano.matches("\\d+")) {
                     valido = false;
                 }
 
@@ -202,7 +203,7 @@ public class Evento {
                     if (m < 1 || m > 12 || d < 1 || a < 1) {
                         valido = false;
                     } else {
-                        int[] diasPorMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+                        int[] diasPorMes = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
                         if ((a % 4 == 0 && a % 100 != 0) || (a % 400 == 0)) {
                             diasPorMes[1] = 29;
@@ -216,7 +217,8 @@ public class Evento {
 
                 if (!valido) {
                     JOptionPane.showMessageDialog(null, "Data inválida. Tente novamente.");
-                    dataDigito = JOptionPane.showConfirmDialog(null, painelData, "Digite a data:", JOptionPane.OK_CANCEL_OPTION);
+                    dataDigito = JOptionPane.showConfirmDialog(null, painelData, "Digite a data:",
+                            JOptionPane.OK_CANCEL_OPTION);
 
                     if (dataDigito != JOptionPane.OK_OPTION) {
                         System.exit(0);
@@ -228,25 +230,44 @@ public class Evento {
             }
         }
 
-        String local = JOptionPane.showInputDialog(null,"Digite o nome do local: ");
+        String local = JOptionPane.showInputDialog(null, "Digite o nome do local: ");
 
-        while(local.isEmpty()){
+        while (local.isEmpty()) {
 
-            JOptionPane.showMessageDialog(null,"Por favor, insira o local.");
+            JOptionPane.showMessageDialog(null, "Por favor, insira o local.");
 
-            local = JOptionPane.showInputDialog(null,"Digite o nome do local: ");
+            local = JOptionPane.showInputDialog(null, "Digite o nome do local: ");
 
         }
 
-        Evento evento = new Evento(idEve++,nomeEvento,data,local,organizadores);
+        Evento evento = new Evento(idEve++, nomeEvento, data, local, organizadores);
 
         eventos.add(evento);
 
     }
 
-    public void adicionarParticipante(Participante novo){
+    public void adicionarParticipante(Participante novo) {
 
         participantes.add(novo);
 
+    }
+
+    public void gerarRelatorioParticipantes() {
+        String relatorio = "Relatório de Participantes do Evento: " + nome + "\n";
+        if (participantes == null || participantes.isEmpty()) {
+            relatorio += "Nenhum participante cadastrado.";
+            JOptionPane.showMessageDialog(null, relatorio);
+            return;
+        }
+
+        String listaDeParticipantes = "";
+
+        for (Participante p : participantes) {
+            listaDeParticipantes += "- " + p.getNome() + "\n";
+        }
+
+        relatorio += listaDeParticipantes;
+
+        JOptionPane.showMessageDialog(null, relatorio);
     }
 }

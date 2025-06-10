@@ -5,8 +5,6 @@ import models.Evento;
 import models.Organizador;
 import utils.Utils;
 
-import javax.swing.*;
-
 public class Main {
     public static void main(String[] args) {
         ArrayList<Evento> eventos = new ArrayList<>();
