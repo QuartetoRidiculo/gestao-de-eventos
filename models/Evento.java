@@ -182,27 +182,50 @@ public class Evento {
         int dataDigito = JOptionPane.showConfirmDialog(null,painelData,"Digite a data:",JOptionPane.OK_CANCEL_OPTION);
 
         if (dataDigito == JOptionPane.OK_OPTION) {
-            String dia = diaA.getText().trim();
-            String mes = mesB.getText().trim();
-            String ano = anoC.getText().trim();
+            while (true) {
+                String dia = diaA.getText().trim();
+                String mes = mesB.getText().trim();
+                String ano = anoC.getText().trim();
 
-            while(dia.isEmpty() || mes.isEmpty() || ano.isEmpty() || !dia.matches("\\d+") || !mes.matches("\\d+")
-                    || !ano.matches("\\d+")) {
+                boolean valido = true;
 
-                JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente.");
-
-                dataDigito = JOptionPane.showConfirmDialog(null,painelData,"Digite a data:",JOptionPane.OK_CANCEL_OPTION);
-
-                if(dataDigito != JOptionPane.OK_OPTION){
-                    System.exit(0);
+                if (dia.isEmpty() || mes.isEmpty() || ano.isEmpty() || !dia.matches("\\d+") || !mes.matches("\\d+") || !ano.matches("\\d+")) {
+                    valido = false;
                 }
 
-                dia = diaA.getText().trim();
-                mes = mesB.getText().trim();
-                ano = anoC.getText().trim();
+                int d = 0, m = 0, a = 0;
+                if (valido) {
+                    d = Integer.parseInt(dia);
+                    m = Integer.parseInt(mes);
+                    a = Integer.parseInt(ano);
 
+                    if (m < 1 || m > 12 || d < 1 || a < 1) {
+                        valido = false;
+                    } else {
+                        int[] diasPorMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
+                        if ((a % 4 == 0 && a % 100 != 0) || (a % 400 == 0)) {
+                            diasPorMes[1] = 29;
+                        }
+
+                        if (d > diasPorMes[m - 1]) {
+                            valido = false;
+                        }
+                    }
+                }
+
+                if (!valido) {
+                    JOptionPane.showMessageDialog(null, "Data inválida. Tente novamente.");
+                    dataDigito = JOptionPane.showConfirmDialog(null, painelData, "Digite a data:", JOptionPane.OK_CANCEL_OPTION);
+
+                    if (dataDigito != JOptionPane.OK_OPTION) {
+                        System.exit(0);
+                    }
+                } else {
+                    data = String.format("%02d/%02d/%04d", d, m, a);
+                    break;
+                }
             }
-
         }
 
         String local = JOptionPane.showInputDialog(null,"Digite o nome do local: ");
