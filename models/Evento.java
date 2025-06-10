@@ -86,23 +86,29 @@ public class Evento {
 
         String quantidadeOrg = JOptionPane.showInputDialog(null,"Digite a quantidade de organizadores:");
 
+        if(quantidadeOrg == null) return;
+
         while(!quantidadeOrg.matches("\\d+")){
 
             JOptionPane.showMessageDialog(null,"Digite uma quantidade válida.");
 
             quantidadeOrg = JOptionPane.showInputDialog(null,"Digite a quantidade de organizadores:");
 
+            if(quantidadeOrg == null) return;
+
         }
 
         int quantInt = Integer.parseInt(quantidadeOrg);
 
-        //Criando os campos de texto dos dados do organizador
+
+
+        // Criando os campos de texto dos dados do organizador
         JTextField nomeOrg = new JTextField();
         JTextField idadeOrg = new JTextField();
         JTextField cpfOrg = new JTextField();
         JTextField cargoOrg = new JTextField();
 
-        JPanel painelOrganizador = new JPanel(new java.awt.GridLayout(4,2,3,5));
+        JPanel painelOrganizador = new JPanel(new java.awt.GridLayout(4, 2, 3, 5));
         painelOrganizador.add(new JLabel("Nome: "));
         painelOrganizador.add(nomeOrg);
 
@@ -115,50 +121,83 @@ public class Evento {
         painelOrganizador.add(new JLabel("Cargo: "));
         painelOrganizador.add(cargoOrg);
 
-        for(int i = 0; i < quantInt; i++){
+        for (int i = 0; i < quantInt; i++) {
+            while (true) {
+                int infoOrg = JOptionPane.showConfirmDialog(null, painelOrganizador,
+                        String.format("Informações do organizador %s:", i + 1), JOptionPane.OK_CANCEL_OPTION);
 
-            int infoOrg = JOptionPane.showConfirmDialog(null,painelOrganizador,
-                    String.format("Informações do organizador %s:",i + 1),JOptionPane.OK_CANCEL_OPTION);
+                if (infoOrg != JOptionPane.OK_OPTION) {
+                    String novaQuantidade = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
 
-            String nome = nomeOrg.getText().trim();
-            String idadeA = idadeOrg.getText().trim();
-            String cpf = cpfOrg.getText().trim();
-            String cargo = cargoOrg.getText().trim();
-            int idade = Integer.parseInt(idadeA);
+                    if (novaQuantidade == null) return;
 
-            while (nome.isEmpty() || idadeA.isEmpty() || cpf.isEmpty() || cargo.isEmpty() ||
-                    (!nome.matches("[\\p{L} ]+") || !cargo.matches("[\\p{L} ]+") ||
-                            !idadeA.matches("\\d+") || !cpf.matches("\\d{11}"))) {
-                JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente.");
+                    while (!novaQuantidade.matches("\\d+")) {
+                        JOptionPane.showMessageDialog(null, "Digite uma quantidade válida.");
+                        novaQuantidade = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
+                        if (novaQuantidade == null) return;
+                    }
 
-                infoOrg = JOptionPane.showConfirmDialog(null,painelOrganizador,
-                        String.format("Informações do organizador %s:",i + 1),JOptionPane.OK_CANCEL_OPTION);
+                    quantInt = Integer.parseInt(novaQuantidade);
+                    i = -1;
+                    break;
+                }
 
-                nome = nomeOrg.getText().trim();
-                idadeA = idadeOrg.getText().trim();
-                cpf = cpfOrg.getText().trim();
-                cargo = cargoOrg.getText().trim();
-                idade = Integer.parseInt(idadeA);
+                String nome = nomeOrg.getText().trim();
+                String idadeA = idadeOrg.getText().trim();
+                String cpf = cpfOrg.getText().trim();
+                String cargo = cargoOrg.getText().trim();
+
+                if (nome.isEmpty() || idadeA.isEmpty() || cpf.isEmpty() || cargo.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
+                    continue;
+                }
+
+                if (!nome.matches("[\\p{L} ]+")) {
+                    JOptionPane.showMessageDialog(null, "Nome inválido.");
+                    continue;
+                }
+
+                if (!cargo.matches("[\\p{L} ]+")) {
+                    JOptionPane.showMessageDialog(null, "Cargo inválido.");
+                    continue;
+                }
+
+                if (!idadeA.matches("\\d+")) {
+                    JOptionPane.showMessageDialog(null, "Idade inválida.");
+                    continue;
+                }
+
+                if (!cpf.matches("\\d{11}")) {
+                    JOptionPane.showMessageDialog(null, "CPF inválido.");
+                    continue;
+                }
+
+                int idade = Integer.parseInt(idadeA);
+                Organizador organizador = new Organizador(idOrg++, nome, idade, cargo);
+                organizadores.add(organizador);
+
+                // Limpa os campos
+                nomeOrg.setText("");
+                idadeOrg.setText("");
+                cpfOrg.setText("");
+                cargoOrg.setText("");
+                break;
             }
-
-            Organizador organizador = new Organizador(idOrg++,nome,idade,cargo);
-
-            organizadores.add(organizador);
-
-            nomeOrg.setText("");
-            idadeOrg.setText("");
-            cpfOrg.setText("");
-            cargoOrg.setText("");
         }
+
 
         //Criando evento
         String nomeEvento = JOptionPane.showInputDialog(null,"Digite o nome do evento:");
+
+        if(nomeEvento == null) return;
 
         while(nomeEvento.isEmpty()){
 
             JOptionPane.showMessageDialog(null,"Por favor, insira o nome do evento.");
 
             nomeEvento = JOptionPane.showInputDialog(null,"Digite o nome do evento:");
+
+            if(nomeEvento == null) return;
 
         }
 
@@ -180,6 +219,8 @@ public class Evento {
         painelData.add(anoC);
 
         int dataDigito = JOptionPane.showConfirmDialog(null,painelData,"Digite a data:",JOptionPane.OK_CANCEL_OPTION);
+
+        if(dataDigito == -1) return;
 
         if (dataDigito == JOptionPane.OK_OPTION) {
             while (true) {
@@ -218,6 +259,8 @@ public class Evento {
                     JOptionPane.showMessageDialog(null, "Data inválida. Tente novamente.");
                     dataDigito = JOptionPane.showConfirmDialog(null, painelData, "Digite a data:", JOptionPane.OK_CANCEL_OPTION);
 
+                    if(dataDigito == -1) return;
+
                     if (dataDigito != JOptionPane.OK_OPTION) {
                         System.exit(0);
                     }
@@ -230,11 +273,15 @@ public class Evento {
 
         String local = JOptionPane.showInputDialog(null,"Digite o nome do local: ");
 
+        if(local == null) return;
+
         while(local.isEmpty()){
 
             JOptionPane.showMessageDialog(null,"Por favor, insira o local.");
 
             local = JOptionPane.showInputDialog(null,"Digite o nome do local: ");
+
+            if(local == null) return;
 
         }
 
