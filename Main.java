@@ -1,34 +1,29 @@
 import java.util.ArrayList;
 
+import models.Colaborador;
 import models.Evento;
 import models.Organizador;
+import models.Participante;
+import services.GerarCertificado;
+import services.GerarRelatorio;
 import utils.Utils;
 
 public class Main {
     public static void main(String[] args) {
         ArrayList<Evento> eventos = new ArrayList<>();
         ArrayList<Organizador> organizadores = new ArrayList<>();
-  
-        Organizador organizador1 = new Organizador(1, "organizador1", 32, "dev front end");
-        Organizador organizador2 = new Organizador(2, "organizador2", 23, "dev back end");
+        ArrayList<Colaborador> colaboradores = new ArrayList<>();
 
-        organizadores.add(organizador1);
-        organizadores.add(organizador2);
+        ArrayList<String> opcoesMenu = new ArrayList<>();
 
-        Evento evento1 = new Evento(1, "evento1", "13/06/2025", "Unifacista", organizadores);
-
-        eventos.add(evento1);
-
-        String[] opcoesMenu = {
-                "Adicionar evento",
-                "Adicionar colaborador",
-                "Realizar inscrição no evento",
-                "Listar eventos",
-                "Listar colaboradores",
-                "Listar participantes",
-                "Gerar certificado",
-                "Gerar relatórios"
-        };
+        opcoesMenu.add("Adicionar evento");
+        opcoesMenu.add("Adicionar colaborador");
+        opcoesMenu.add("Realizar inscrição no evento");
+        opcoesMenu.add("Listar eventos");
+        opcoesMenu.add("Listar colaboradores");
+        opcoesMenu.add("Listar participantes");
+        opcoesMenu.add("Gerar certificado");
+        opcoesMenu.add("Gerar relatório de participantes por evento");
 
         int escolha = -2;
 
@@ -38,27 +33,34 @@ public class Main {
             switch (escolha) {
                 case 0:
                     // Adicionar evento
+                    Evento.criarEvento(organizadores,eventos);
                     break;
                 case 1:
                     // Adicionar colaborador
+                    Colaborador.adicionarColaborador(eventos,colaboradores);
                     break;
                 case 2:
                     // Realizar inscrição no evento
+                    Participante.criarParticipante(eventos);
                     break;
                 case 3:
                     // Listar eventos
+
                     break;
                 case 4:
                     // Listar colaboradores
+
                     break;
                 case 5:
                     // Listar participantes
                     break;
                 case 6:
                     // Gerar certificado
+                    GerarCertificado.gerarCertificado(eventos);
                     break;
                 case 7:
                     // Gerar relatórios
+                    GerarRelatorio.gerarRelatorio(eventos);
                     break;
                 default:
                     break;

@@ -1,21 +1,37 @@
 package models;
 
-import java.util.ArrayList;
+public abstract class Pessoa {
+    private String nome;
+    private int idade;
+    private int id;
 
-public interface Pessoa {
-    public int getId();
+    public Pessoa(String nome, int idade, int id) {
+        this.nome = nome;
+        this.idade = idade;
+        this.id = id;
+    }
 
-    public void setId(int id);
+    public int getId() {
+        return id;
+    }
 
-    public String getNome();
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public void setNome(String nome);
+    public String getNome() {
+        return nome;
+    }
 
-    public int getIdade();
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-    public void setIdade(int idade);
+    public int getIdade() {
+        return idade;
+    }
 
-    public ArrayList<Evento> getEventos();
-
-    public void setEventos(ArrayList<Evento> eventos);
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
 }
