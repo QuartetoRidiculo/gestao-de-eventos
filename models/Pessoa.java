@@ -3,10 +3,20 @@ package models;
 public abstract class Pessoa {
     private String nome;
     private int idade;
+    private int id;
 
-    public Pessoa(String nome, int idade) {
+    public Pessoa(String nome, int idade, int id) {
         this.nome = nome;
         this.idade = idade;
+        this.id = id;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {
