@@ -3,6 +3,9 @@ import java.util.ArrayList;
 import models.Colaborador;
 import models.Evento;
 import models.Organizador;
+import models.Participante;
+import services.GerarCertificado;
+import services.GerarRelatorio;
 import utils.Utils;
 
 public class Main {
@@ -38,6 +41,7 @@ public class Main {
                     break;
                 case 2:
                     // Realizar inscrição no evento
+                    Participante.criarParticipante(eventos);
                     break;
                 case 3:
                     // Listar eventos
@@ -52,9 +56,11 @@ public class Main {
                     break;
                 case 6:
                     // Gerar certificado
+                    GerarCertificado.gerarCertificado(eventos);
                     break;
                 case 7:
                     // Gerar relatórios
+                    GerarRelatorio.gerarRelatorio(eventos);
                     break;
                 default:
                     break;

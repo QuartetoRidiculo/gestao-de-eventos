@@ -90,7 +90,6 @@ public class Evento implements EventoInterface {
             JOptionPane.showMessageDialog(null, "Digite uma quantidade válida.");
 
             quantidadeOrg = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
-
         }
 
         int quantInt = Integer.parseInt(quantidadeOrg);
