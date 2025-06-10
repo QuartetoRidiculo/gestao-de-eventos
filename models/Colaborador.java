@@ -4,43 +4,12 @@ import javax.swing.*;
 import java.util.ArrayList;
 import utils.Utils;
 
-public class Colaborador implements Pessoa {
-    private int id;
-    private String nome;
-    private int idade;
+public class Colaborador extends Pessoa {
     private String funcao;
-    private ArrayList<Evento> eventos;
 
-
-    public Colaborador(int id, String nome, int idade, String funcao) {
-        this.id = id;
-        this.nome = nome;
-        this.idade = idade;
+    public Colaborador(String nome, int idade, int id, String funcao) {
+        super(nome, idade, id);
         this.funcao = funcao;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public int getIdade() {
-        return idade;
-    }
-
-    public void setIdade(int idade) {
-        this.idade = idade;
     }
 
     public String getFuncao() {
@@ -50,22 +19,14 @@ public class Colaborador implements Pessoa {
     public void setFuncao(String funcao) {
         this.funcao = funcao;
     }
-    
-    public ArrayList<Evento> getEventos() {
-        return eventos;
-    }
 
-    public void setEventos(ArrayList<Evento> eventos) {
-        this.eventos = eventos;
-    }
-
-    public static void adicionarColaborador(ArrayList<Evento> eventos,ArrayList<Colaborador> colaboradores){
+    public static void adicionarColaborador(ArrayList<Evento> eventos, ArrayList<Colaborador> colaboradores) {
 
         int idCol = 0;
 
-        if(eventos.isEmpty()){
+        if (eventos.isEmpty()) {
 
-            JOptionPane.showMessageDialog(null,"Não há eventos cadastrados.");
+            JOptionPane.showMessageDialog(null, "Não há eventos cadastrados.");
             return;
 
         }
@@ -74,7 +35,7 @@ public class Colaborador implements Pessoa {
         JTextField idadeCol = new JTextField();
         JTextField funcaoColaborador = new JTextField();
 
-        JPanel painelOrganizadorCol = new JPanel(new java.awt.GridLayout(3,2,3,5));
+        JPanel painelOrganizadorCol = new JPanel(new java.awt.GridLayout(3, 2, 3, 5));
         painelOrganizadorCol.add(new JLabel("Nome do Colaborador: "));
         painelOrganizadorCol.add(nomeColaborador);
 
@@ -121,7 +82,7 @@ public class Colaborador implements Pessoa {
             }
         }
 
-        Colaborador colaborador = new Colaborador(idCol++,nome,idade,funcao);
+        Colaborador colaborador = new Colaborador(nome, idade, idCol++, funcao);
 
         ArrayList<Colaborador> colaboradoresA = new ArrayList<>();
 
@@ -129,19 +90,12 @@ public class Colaborador implements Pessoa {
 
         int escolha = Utils.exibirNomeEventos(eventos);
 
-        if(escolha == -1){
+        if (escolha == -1) {
 
             return;
 
         }
 
         eventos.get(escolha).setColaboradores(colaboradoresA);
-
-
-
-
-
-
     }
-
 }
