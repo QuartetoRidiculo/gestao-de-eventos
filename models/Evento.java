@@ -84,24 +84,6 @@ public class Evento {
         int idOrg = 0;
         int idEve = 0;
 
-        String quantidadeOrg = JOptionPane.showInputDialog(null,"Digite a quantidade de organizadores:");
-
-        if(quantidadeOrg == null) return;
-
-        while(!quantidadeOrg.matches("\\d+")){
-
-            JOptionPane.showMessageDialog(null,"Digite uma quantidade válida.");
-
-            quantidadeOrg = JOptionPane.showInputDialog(null,"Digite a quantidade de organizadores:");
-
-            if(quantidadeOrg == null) return;
-
-        }
-
-        int quantInt = Integer.parseInt(quantidadeOrg);
-
-
-
         // Criando os campos de texto dos dados do organizador
         JTextField nomeOrg = new JTextField();
         JTextField idadeOrg = new JTextField();
@@ -121,69 +103,53 @@ public class Evento {
         painelOrganizador.add(new JLabel("Cargo: "));
         painelOrganizador.add(cargoOrg);
 
-        for (int i = 0; i < quantInt; i++) {
-            while (true) {
-                int infoOrg = JOptionPane.showConfirmDialog(null, painelOrganizador,
-                        String.format("Informações do organizador %s:", i + 1), JOptionPane.OK_CANCEL_OPTION);
+        while (true) {
+            int infoOrg = JOptionPane.showConfirmDialog(null, painelOrganizador,
+                    "Informações do organizador:", JOptionPane.OK_CANCEL_OPTION);
 
-                if (infoOrg != JOptionPane.OK_OPTION) {
-                    String novaQuantidade = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
+            if (infoOrg != JOptionPane.OK_OPTION) return;
 
-                    if (novaQuantidade == null) return;
+            String nome = nomeOrg.getText().trim();
+            String idadeA = idadeOrg.getText().trim();
+            String cpf = cpfOrg.getText().trim();
+            String cargo = cargoOrg.getText().trim();
 
-                    while (!novaQuantidade.matches("\\d+")) {
-                        JOptionPane.showMessageDialog(null, "Digite uma quantidade válida.");
-                        novaQuantidade = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
-                        if (novaQuantidade == null) return;
-                    }
-
-                    quantInt = Integer.parseInt(novaQuantidade);
-                    i = -1;
-                    break;
-                }
-
-                String nome = nomeOrg.getText().trim();
-                String idadeA = idadeOrg.getText().trim();
-                String cpf = cpfOrg.getText().trim();
-                String cargo = cargoOrg.getText().trim();
-
-                if (nome.isEmpty() || idadeA.isEmpty() || cpf.isEmpty() || cargo.isEmpty()) {
-                    JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
-                    continue;
-                }
-
-                if (!nome.matches("[\\p{L} ]+")) {
-                    JOptionPane.showMessageDialog(null, "Nome inválido.");
-                    continue;
-                }
-
-                if (!cargo.matches("[\\p{L} ]+")) {
-                    JOptionPane.showMessageDialog(null, "Cargo inválido.");
-                    continue;
-                }
-
-                if (!idadeA.matches("\\d+")) {
-                    JOptionPane.showMessageDialog(null, "Idade inválida.");
-                    continue;
-                }
-
-                if (!cpf.matches("\\d{11}")) {
-                    JOptionPane.showMessageDialog(null, "CPF inválido.");
-                    continue;
-                }
-
-                int idade = Integer.parseInt(idadeA);
-                Organizador organizador = new Organizador(idOrg++, nome, idade, cargo);
-                organizadores.add(organizador);
-
-                // Limpa os campos
-                nomeOrg.setText("");
-                idadeOrg.setText("");
-                cpfOrg.setText("");
-                cargoOrg.setText("");
-                break;
+            if (nome.isEmpty() || idadeA.isEmpty() || cpf.isEmpty() || cargo.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Todos os campos devem ser preenchidos.");
+                continue;
             }
-        }
+
+            if (!nome.matches("[\\p{L} ]+")) {
+                JOptionPane.showMessageDialog(null, "Nome inválido.");
+                continue;
+            }
+
+            if (!cargo.matches("[\\p{L} ]+")) {
+                JOptionPane.showMessageDialog(null, "Cargo inválido.");
+                continue;
+            }
+
+            if (!idadeA.matches("\\d+")) {
+                JOptionPane.showMessageDialog(null, "Idade inválida.");
+                continue;
+            }
+
+            if (!cpf.matches("\\d{11}")) {
+                JOptionPane.showMessageDialog(null, "CPF inválido.");
+                continue;
+            }
+
+            int idade = Integer.parseInt(idadeA);
+            Organizador organizador = new Organizador(nome, idade, idOrg++, cargo);
+            organizadores.add(organizador);
+
+            nomeOrg.setText("");
+            idadeOrg.setText("");
+            cpfOrg.setText("");
+            cargoOrg.setText("");
+
+            break;
+    }
 
 
         //Criando evento
