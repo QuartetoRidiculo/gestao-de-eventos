@@ -6,6 +6,7 @@ import models.Organizador;
 import models.Participante;
 import services.GerarCertificado;
 import services.GerarRelatorio;
+import services.Listar;
 import utils.Utils;
 
 public class Main {
@@ -45,14 +46,15 @@ public class Main {
                     break;
                 case 3:
                     // Listar eventos
-
+                    Listar.listarEventos(eventos);
                     break;
                 case 4:
                     // Listar colaboradores
-
+                    Listar.listarOrganizadores(eventos);
                     break;
                 case 5:
                     // Listar participantes
+                    Listar.listarPartcipantes(eventos);
                     break;
                 case 6:
                     // Gerar certificado
