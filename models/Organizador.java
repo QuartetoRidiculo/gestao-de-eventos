@@ -1,13 +1,12 @@
 package models;
 
-import javax.swing.*;
-import java.util.ArrayList;
-
 public class Organizador extends Pessoa {
     private String cargo;
+    private String cpf;
+    
 
-    public Organizador(String nome, int idade, int id, String cargo) {
-        super(nome, idade, id);
+    public Organizador(String nome, int idade, String cpf, String cargo) {
+        super(nome, idade);
         this.cargo = cargo;
     }
 
@@ -19,75 +18,12 @@ public class Organizador extends Pessoa {
         this.cargo = cargo;
     }
 
-    public static void criarOrganizador(ArrayList<Organizador> organizadores){
+    public String getCpf() {
+        return cpf;
+    }
 
-        int idOrg = 0;
-
-        String quantidadeOrg = JOptionPane.showInputDialog(null,"Digite a quantidade de organizadores:");
-
-        while(!quantidadeOrg.matches("\\d+")){
-
-            JOptionPane.showMessageDialog(null,"Digite uma quantidade válida.");
-
-            quantidadeOrg = JOptionPane.showInputDialog(null,"Digite a quantidade de organizadores:");
-
-        }
-
-        int quantInt = Integer.parseInt(quantidadeOrg);
-
-        //Criando os campos de texto dos dados do organizador
-        JTextField nomeOrg = new JTextField();
-        JTextField idadeOrg = new JTextField();
-        JTextField cpfOrg = new JTextField();
-        JTextField cargoOrg = new JTextField();
-
-        JPanel painelOrganizador = new JPanel(new java.awt.GridLayout(4,2,3,5));
-        painelOrganizador.add(new JLabel("Nome: "));
-        painelOrganizador.add(nomeOrg);
-
-        painelOrganizador.add(new JLabel("Idade: "));
-        painelOrganizador.add(idadeOrg);
-
-        painelOrganizador.add(new JLabel("CPF: "));
-        painelOrganizador.add(cpfOrg);
-
-        painelOrganizador.add(new JLabel("Cargo: "));
-        painelOrganizador.add(cargoOrg);
-
-        for(int i = 0; i < quantInt; i++){
-
-            int infoOrg = JOptionPane.showConfirmDialog(null,painelOrganizador,
-                    String.format("Informações do organizador %s:",i + 1),JOptionPane.OK_CANCEL_OPTION);
-
-            String nome = nomeOrg.getText().trim();
-            String idadeA = idadeOrg.getText().trim();
-            String cpf = cpfOrg.getText().trim();
-            String cargo = cargoOrg.getText().trim();
-
-            while (nome.isEmpty() || idadeA.isEmpty() || cpf.isEmpty() || cargo.isEmpty() ||
-                    (!nome.matches("[\\p{L} ]+") || !cargo.matches("[\\p{L} ]+") ||
-                            !idadeA.matches("\\d+") || !cpf.matches("\\d+"))) {
-                JOptionPane.showMessageDialog(null, "Os campos não foram preenchidos corretamente.");
-
-                infoOrg = JOptionPane.showConfirmDialog(null,painelOrganizador,
-                        String.format("Informações do organizador %s:",i + 1),JOptionPane.OK_CANCEL_OPTION);
-
-                nome = nomeOrg.getText().trim();
-                idadeA = idadeOrg.getText().trim();
-                cpf = cpfOrg.getText().trim();
-                cargo = cargoOrg.getText().trim();
-                int idade = Integer.parseInt(idadeA);
-
-                Organizador organizador = new Organizador(nome, idade, idOrg++, cargo);
-
-                organizadores.add(organizador);
-            }
-
-            nomeOrg.setText("");
-            idadeOrg.setText("");
-            cpfOrg.setText("");
-            cargoOrg.setText("");
-        }
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 }
 

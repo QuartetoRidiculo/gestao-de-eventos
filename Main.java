@@ -1,9 +1,9 @@
 import java.util.ArrayList;
 
-import models.Colaborador;
 import models.Evento;
-import models.Organizador;
-import models.Participante;
+import services.CriarColaborador;
+import services.CriarEvento;
+import services.CriarParticipante;
 import services.GerarCertificado;
 import services.GerarRelatorio;
 import services.Listar;
@@ -12,8 +12,6 @@ import utils.Utils;
 public class Main {
     public static void main(String[] args) {
         ArrayList<Evento> eventos = new ArrayList<>();
-        ArrayList<Organizador> organizadores = new ArrayList<>();
-        ArrayList<Colaborador> colaboradores = new ArrayList<>();
 
         ArrayList<String> opcoesMenu = new ArrayList<>();
 
@@ -34,15 +32,15 @@ public class Main {
             switch (escolha) {
                 case 0:
                     // Adicionar evento
-                    Evento.criarEvento(organizadores,eventos);
+                    CriarEvento.criarEvento(eventos);
                     break;
                 case 1:
                     // Adicionar colaborador
-                    Colaborador.adicionarColaborador(eventos,colaboradores);
+                    CriarColaborador.adicionarColaborador(eventos);
                     break;
                 case 2:
                     // Realizar inscrição no evento
-                    Participante.criarParticipante(eventos);
+                    CriarParticipante.criarParticipante(eventos);
                     break;
                 case 3:
                     // Listar eventos

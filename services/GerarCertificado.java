@@ -47,7 +47,7 @@ public class GerarCertificado {
 
         String certificado = "CERTIFICADO DE PARTICIPAÇÃO\n\n" +
                 "Certificamos que " + participante.getNome() + ",\n" +
-                "Com idade de " + participante.getIdade() + " anos,\n" +
+                "portador do CPF " + participante.getCpf() + ", com idade de " + participante.getIdade() + " anos,\n" +
                 "participou do evento \"" + evento.getNome() + "\"\n" +
                 "realizado em " + evento.getData() + ".\n\n" +
                 "Parabéns pela sua participação!\n\n" +
