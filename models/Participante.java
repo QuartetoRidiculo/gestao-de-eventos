@@ -44,28 +44,39 @@ public class Participante {
         this.eventos = eventos;
     }
 
-    public static Participante criarParticipante(ArrayList<Evento> listaEventos) {
+    public static void criarParticipante(ArrayList<Evento> listaEventos) {
+        if (listaEventos.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Não há eventos cadastrados.");
+           return;
+        }
+
         String nome = JOptionPane.showInputDialog(null, "Digite o nome do participante:");
         if (nome == null || nome.trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Nome inválido. Operação cancelada.");
-            return null;
+            return;
         }
 
         String idadeStr;
         while (true) {
             idadeStr = JOptionPane.showInputDialog(null, "Digite a idade:");
-            if (idadeStr == null) return null;
-            if (idadeStr.trim().matches("\\d+")) break;
-            else JOptionPane.showMessageDialog(null, "Digite somente números.");
+            if (idadeStr == null)
+                return;
+            if (idadeStr.trim().matches("\\d+"))
+                break;
+            else
+                JOptionPane.showMessageDialog(null, "Digite somente números.");
         }
         int idade = Integer.parseInt(idadeStr.trim());
 
         String cpfStr;
         while (true) {
             cpfStr = JOptionPane.showInputDialog(null, "Digite o CPF:");
-            if (cpfStr == null) return null;
-            if (cpfStr.trim().matches("\\d+")) break;
-            else JOptionPane.showMessageDialog(null, "Digite somente números.");
+            if (cpfStr == null)
+                return;
+            if (cpfStr.trim().matches("\\d+"))
+                break;
+            else
+                JOptionPane.showMessageDialog(null, "Digite somente números.");
         }
 
         Participante novo = new Participante(contadorId++, nome.trim(), idade, cpfStr.trim());
@@ -84,8 +95,7 @@ public class Participante {
                     JOptionPane.PLAIN_MESSAGE,
                     null,
                     nomesEventos,
-                    nomesEventos[0]
-            );
+                    nomesEventos[0]);
 
             if (escolha != null) {
                 for (Evento ev : listaEventos) {
@@ -105,9 +115,7 @@ public class Participante {
                         "Nome: " + novo.getNome() + "\n" +
                         "Idade: " + novo.getIdade() + "\n" +
                         "CPF: " + novo.getCpf() + "\n" +
-                        (novo.getEventos().size() > 0 ? "Evento: " + novo.getEventos().get(0).getNome() : "Nenhum evento escolhido")
-        );
-
-        return novo;
+                        (novo.getEventos().size() > 0 ? "Evento: " + novo.getEventos().get(0).getNome()
+                                : "Nenhum evento escolhido"));
     }
 }

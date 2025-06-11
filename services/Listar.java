@@ -1,5 +1,6 @@
 package services;
 
+import models.Colaborador;
 import models.Evento;
 import models.Organizador;
 import models.Participante;
@@ -11,48 +12,82 @@ import java.util.ArrayList;
 public class Listar {
 
     public static void listarEventos(ArrayList<Evento> eventos) {
-        //---------------------------------------------------------------------------------------------------------------------------------------------------------------
-        //Laço de repetição que irá garantir que o usuario clique em alguma opção, caso o mesmo não clique, um pop-up informativo irá aparecerer para alertá-lo e voltará ao inicio.
-            int eventoEscolhido = Utils.exibirNomeEventos(eventos);
+        if (eventos == null || eventos.size() == 0) {
+            JOptionPane.showMessageDialog(null, "Não há eventos cadastrados.");
+            return;
+        }
 
-            if(eventoEscolhido == -2){
-                JOptionPane.showMessageDialog(null, "Nenhuma opção selecionada, tente novamente!");
-                return;
+        int eventoEscolhido = Utils.exibirNomeEventos(eventos);
+
+        if (eventoEscolhido == -2) {
+            JOptionPane.showMessageDialog(null, "Nenhuma opção selecionada, tente novamente!");
+            return;
+        }
+
+        String organizadores = "";
+
+        for (Organizador organizador : eventos.get(eventoEscolhido).getOrganizadores()) {
+            organizadores += organizador.getNome();
+
+            if (organizador == eventos.get(eventoEscolhido).getOrganizadores().getLast()) {
+                organizadores += ".";
+            } else {
+                organizadores += ", ";
             }
+        }
 
-            JOptionPane.showMessageDialog(null, String.format(
-                    "Relatório de Participantes - Evento: %s\nData: %s\nLocal: %s\nOrganizador: %s\n\nTotal participantes: %s",
-                    eventos.get(eventoEscolhido).getNome(),
-                    eventos.get(eventoEscolhido).getData(),
-                    eventos.get(eventoEscolhido).getLocal(),
-                    eventos.get(eventoEscolhido).getOrganizadores(),
-                    eventos.get(eventoEscolhido).getParticipantes().size()));
+        JOptionPane.showMessageDialog(null, String.format(
+                "Relatório de Participantes - Evento: %s\nData: %s\nLocal: %s\nOrganizador: %s\n\nTotal participantes: %s",
+                eventos.get(eventoEscolhido).getNome(),
+                eventos.get(eventoEscolhido).getData(),
+                eventos.get(eventoEscolhido).getLocal(),
+                organizadores,
+                eventos.get(eventoEscolhido).getParticipantes().size()));
     }
 
-    public static void listarPartcipantes(ArrayList<Evento> eventos){
+    public static void listarPartcipantes(ArrayList<Evento> eventos) {
+        if (eventos == null || eventos.size() == 0) {
+            JOptionPane.showMessageDialog(null, "Não há eventos cadastrados.");
+            return;
+        }
 
         int eventoEsclhido = Utils.exibirNomeEventos(eventos);
 
         ArrayList<Participante> participantes = eventos.get(eventoEsclhido).getParticipantes();
+
+        if (participantes.size() == 0 || participantes == null) {
+            JOptionPane.showMessageDialog(null, "Não há participantes cadastrados neste evento.");
+            return;
+        }
+
         String listaP = "";
 
         for (int c = 0; c < participantes.size(); c++) {
             listaP += participantes.get(c).getNome() + "\n";
         }
-        JOptionPane.showMessageDialog(null,listaP);
+        JOptionPane.showMessageDialog(null, listaP);
     }
-    
-    public static void listarOrganizadores(ArrayList<Evento> eventos) {
+
+    public static void listarColaboradores(ArrayList<Evento> eventos) {
+        if (eventos == null || eventos.size() == 0) {
+            JOptionPane.showMessageDialog(null, "Não há eventos cadastrados.");
+            return;
+        }
 
         int eventoEsclhido = Utils.exibirNomeEventos(eventos);
 
-        ArrayList<Organizador> organizadores = eventos.get(eventoEsclhido).getOrganizadores();
-        String listaO = "";
+        ArrayList<Colaborador> colaboradores = eventos.get(eventoEsclhido).getColaboradores();
 
-        for (int c = 0; c < organizadores.size(); c++) {
-            listaO += organizadores.get(c).getNome() + "\n";
+        if (colaboradores.size() == 0 || colaboradores == null) {
+            JOptionPane.showMessageDialog(null, "Não há colaboradores cadastrados neste evento.");
+            return;
         }
-        JOptionPane.showMessageDialog(null, listaO);
+
+        String listaC = "";
+
+        for (int c = 0; c < colaboradores.size(); c++) {
+            listaC += colaboradores.get(c).getNome() + "\n";
+        }
+        JOptionPane.showMessageDialog(null, listaC);
     }
 }
-

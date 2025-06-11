@@ -12,7 +12,6 @@ public class Evento {
     private ArrayList<Participante> participantes;
     private ArrayList<Colaborador> colaboradores;
 
-
     public int getId() {
         return id;
     }
@@ -79,28 +78,28 @@ public class Evento {
         this.colaboradores = colaboradores;
     }
 
-    public static void criarEvento(ArrayList<Organizador> organizadores, ArrayList<Evento> eventos){
+    public static void criarEvento(ArrayList<Organizador> organizadores, ArrayList<Evento> eventos) {
 
         int idOrg = 0;
         int idEve = 0;
 
-        String quantidadeOrg = JOptionPane.showInputDialog(null,"Digite a quantidade de organizadores:");
+        String quantidadeOrg = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
 
-        if(quantidadeOrg == null) return;
+        if (quantidadeOrg == null)
+            return;
 
-        while(!quantidadeOrg.matches("\\d+")){
+        while (!quantidadeOrg.matches("\\d+")) {
 
-            JOptionPane.showMessageDialog(null,"Digite uma quantidade válida.");
+            JOptionPane.showMessageDialog(null, "Digite uma quantidade válida.");
 
-            quantidadeOrg = JOptionPane.showInputDialog(null,"Digite a quantidade de organizadores:");
+            quantidadeOrg = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
 
-            if(quantidadeOrg == null) return;
+            if (quantidadeOrg == null)
+                return;
 
         }
 
         int quantInt = Integer.parseInt(quantidadeOrg);
-
-
 
         // Criando os campos de texto dos dados do organizador
         JTextField nomeOrg = new JTextField();
@@ -129,12 +128,14 @@ public class Evento {
                 if (infoOrg != JOptionPane.OK_OPTION) {
                     String novaQuantidade = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
 
-                    if (novaQuantidade == null) return;
+                    if (novaQuantidade == null)
+                        return;
 
                     while (!novaQuantidade.matches("\\d+")) {
                         JOptionPane.showMessageDialog(null, "Digite uma quantidade válida.");
                         novaQuantidade = JOptionPane.showInputDialog(null, "Digite a quantidade de organizadores:");
-                        if (novaQuantidade == null) return;
+                        if (novaQuantidade == null)
+                            return;
                     }
 
                     quantInt = Integer.parseInt(novaQuantidade);
@@ -173,7 +174,7 @@ public class Evento {
                 }
 
                 int idade = Integer.parseInt(idadeA);
-                Organizador organizador = new Organizador(idOrg++, nome, idade, cargo);
+                Organizador organizador = new Organizador(nome, idade, idOrg++, cargo);
                 organizadores.add(organizador);
 
                 // Limpa os campos
@@ -185,30 +186,31 @@ public class Evento {
             }
         }
 
+        // Criando evento
+        String nomeEvento = JOptionPane.showInputDialog(null, "Digite o nome do evento:");
 
-        //Criando evento
-        String nomeEvento = JOptionPane.showInputDialog(null,"Digite o nome do evento:");
+        if (nomeEvento == null)
+            return;
 
-        if(nomeEvento == null) return;
+        while (nomeEvento.isEmpty()) {
 
-        while(nomeEvento.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Por favor, insira o nome do evento.");
 
-            JOptionPane.showMessageDialog(null,"Por favor, insira o nome do evento.");
+            nomeEvento = JOptionPane.showInputDialog(null, "Digite o nome do evento:");
 
-            nomeEvento = JOptionPane.showInputDialog(null,"Digite o nome do evento:");
-
-            if(nomeEvento == null) return;
+            if (nomeEvento == null)
+                return;
 
         }
 
         String data = "";
 
-        //Criando os campos do texto da data
+        // Criando os campos do texto da data
         JTextField diaA = new JTextField();
         JTextField mesB = new JTextField();
         JTextField anoC = new JTextField();
 
-        JPanel painelData = new JPanel(new java.awt.GridLayout(3,2,3,5));
+        JPanel painelData = new JPanel(new java.awt.GridLayout(3, 2, 3, 5));
         painelData.add(new JLabel("Dia:"));
         painelData.add(diaA);
 
@@ -218,9 +220,11 @@ public class Evento {
         painelData.add(new JLabel("Ano:"));
         painelData.add(anoC);
 
-        int dataDigito = JOptionPane.showConfirmDialog(null,painelData,"Digite a data:",JOptionPane.OK_CANCEL_OPTION);
+        int dataDigito = JOptionPane.showConfirmDialog(null, painelData, "Digite a data:",
+                JOptionPane.OK_CANCEL_OPTION);
 
-        if(dataDigito == -1) return;
+        if (dataDigito == -1)
+            return;
 
         if (dataDigito == JOptionPane.OK_OPTION) {
             while (true) {
@@ -230,7 +234,8 @@ public class Evento {
 
                 boolean valido = true;
 
-                if (dia.isEmpty() || mes.isEmpty() || ano.isEmpty() || !dia.matches("\\d+") || !mes.matches("\\d+") || !ano.matches("\\d+")) {
+                if (dia.isEmpty() || mes.isEmpty() || ano.isEmpty() || !dia.matches("\\d+") || !mes.matches("\\d+")
+                        || !ano.matches("\\d+")) {
                     valido = false;
                 }
 
@@ -243,7 +248,7 @@ public class Evento {
                     if (m < 1 || m > 12 || d < 1 || a < 1) {
                         valido = false;
                     } else {
-                        int[] diasPorMes = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+                        int[] diasPorMes = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
 
                         if ((a % 4 == 0 && a % 100 != 0) || (a % 400 == 0)) {
                             diasPorMes[1] = 29;
@@ -257,9 +262,11 @@ public class Evento {
 
                 if (!valido) {
                     JOptionPane.showMessageDialog(null, "Data inválida. Tente novamente.");
-                    dataDigito = JOptionPane.showConfirmDialog(null, painelData, "Digite a data:", JOptionPane.OK_CANCEL_OPTION);
+                    dataDigito = JOptionPane.showConfirmDialog(null, painelData, "Digite a data:",
+                            JOptionPane.OK_CANCEL_OPTION);
 
-                    if(dataDigito == -1) return;
+                    if (dataDigito == -1)
+                        return;
 
                     if (dataDigito != JOptionPane.OK_OPTION) {
                         System.exit(0);
@@ -271,29 +278,57 @@ public class Evento {
             }
         }
 
-        String local = JOptionPane.showInputDialog(null,"Digite o nome do local: ");
+        String local = JOptionPane.showInputDialog(null, "Digite o nome do local: ");
 
-        if(local == null) return;
+        if (local == null)
+            return;
 
-        while(local.isEmpty()){
+        while (local.isEmpty()) {
 
-            JOptionPane.showMessageDialog(null,"Por favor, insira o local.");
+            JOptionPane.showMessageDialog(null, "Por favor, insira o local.");
 
-            local = JOptionPane.showInputDialog(null,"Digite o nome do local: ");
+            local = JOptionPane.showInputDialog(null, "Digite o nome do local: ");
 
-            if(local == null) return;
-
+            if (local == null)
+                return;
         }
 
-        Evento evento = new Evento(idEve++,nomeEvento,data,local,organizadores);
+        Evento evento = new Evento(idEve++, nomeEvento, data, local, organizadores);
 
         eventos.add(evento);
 
     }
 
-    public void adicionarParticipante(Participante novo){
+    public void adicionarParticipante(Participante novo) {
 
         participantes.add(novo);
 
+    }
+
+    public void gerarRelatorioParticipantes() {
+        StringBuilder relatorio = new StringBuilder();
+        relatorio.append("Relatório de Participantes do Evento: ").append(nome).append("\n\n");
+
+        if (participantes == null || participantes.isEmpty()) {
+            relatorio.append("Nenhum participante cadastrado.");
+        } else {
+            for (Participante p : participantes) {
+                relatorio.append("- ").append(p.getNome()).append("\n");
+            }
+        }
+
+        // Criar JTextArea para melhor formatação do texto
+        JTextArea textArea = new JTextArea(relatorio.toString());
+        textArea.setEditable(false);
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setFont(new java.awt.Font("Arial", java.awt.Font.PLAIN, 14));
+
+        // Adicionar JTextArea em JScrollPane para permitir rolagem
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setPreferredSize(new java.awt.Dimension(400, 300)); // tamanho da janela
+
+        // Mostrar no JOptionPane com o scroll
+        JOptionPane.showMessageDialog(null, scrollPane, "Relatório de Participantes", JOptionPane.INFORMATION_MESSAGE);
     }
 }

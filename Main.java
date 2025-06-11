@@ -50,7 +50,7 @@ public class Main {
                     break;
                 case 4:
                     // Listar colaboradores
-                    Listar.listarOrganizadores(eventos);
+                    Listar.listarColaboradores(eventos);
                     break;
                 case 5:
                     // Listar participantes

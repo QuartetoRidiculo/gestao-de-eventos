@@ -19,7 +19,7 @@ public class Organizador extends Pessoa {
         this.cargo = cargo;
     }
 
-    public static void criandoOrganizador(ArrayList<Organizador> organizadores){
+    public static void criarOrganizador(ArrayList<Organizador> organizadores){
 
         int idOrg = 0;
 

@@ -25,7 +25,6 @@ public class Colaborador extends Pessoa {
         int idCol = 0;
 
         if (eventos.isEmpty()) {
-
             JOptionPane.showMessageDialog(null, "Não há eventos cadastrados.");
             return;
 
